@@ -12,7 +12,13 @@
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .phonk-btn { background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); }
         .games-btn { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        /* Style for the disabled button state */
+        button:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            background-color: #334155 !important; 
+            color: #94a3b8 !important;
+        }
     </style>
 </head>
 <body class="min-h-screen p-6 flex flex-col items-center">
@@ -39,14 +45,15 @@
                 <div class="bg-slate-900 rounded-xl px-4 py-2 border border-white/5">
                     <label class="text-[10px] text-slate-500 font-bold uppercase">Your Unique ID</label>
                     <input type="text" name="User_ID" id="idDisplay" readonly 
-                        class="w-full bg-transparent text-emerald-400 font-mono text-sm outline-none cursor-default">
+                        class="w-full bg-transparent text-emerald-400 font-mono text-sm outline-none cursor-default" value="Waiting...">
                 </div>
                 
                 <input type="text" name="message" placeholder="What website should I add?" required 
                     class="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white">
                 
-                <button type="submit" id="submitBtn" disabled class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition-all active:scale-95">
-                    Submit Request
+                <button type="submit" id="submitBtn" disabled 
+                    class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl transition-all active:scale-95">
+                    Generating User ID to submit a request...
                 </button>
             </form>
         </div>
@@ -65,21 +72,33 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcXhrbHhuaXVnanBjaHBhamx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjY4MTIsImV4cCI6MjA4ODk0MjgxMn0.tBrAd0Im7XR30oNV1NROERm6-yF8PNBFeCqFFX4qbGM';
         const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-        // 1. Generate/Load ID immediately
-        let myId = localStorage.getItem('edOne_userId');
-        if (!myId) {
-            myId = 'User-' + Math.floor(Math.random() * 9000 + 1000);
-            localStorage.setItem('edOne_userId', myId);
+        // 1. Logic to create/load the ID
+        function setupUserId() {
+            let myId = localStorage.getItem('edOne_userId');
+            if (!myId) {
+                myId = 'User-' + Math.floor(Math.random() * 9000 + 1000);
+                localStorage.setItem('edOne_userId', myId);
+            }
+
+            const idDisplay = document.getElementById('idDisplay');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // 2. Update UI once ID is confirmed
+            if (myId) {
+                idDisplay.value = myId;
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Request";
+                submitBtn.classList.add('hover:bg-emerald-400'); // Add hover back once active
+            }
         }
 
-        // 2. Put ID into form and enable button
-        const idDisplay = document.getElementById('idDisplay');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        idDisplay.value = myId;
-        submitBtn.disabled = false; // Button is now safe to click
+        // Run setup
+        setupUserId();
 
         async function checkNotifications() {
+            const myId = localStorage.getItem('edOne_userId');
+            if (!myId) return;
+
             const { data } = await supabase.from('site_notifications').select('*').eq('user_id', myId).order('created_at', { ascending: false });
             if (data && data.length > 0) {
                 document.getElementById('inboxContainer').classList.remove('hidden');
