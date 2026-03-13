@@ -2,61 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greyson's Admin | EdOne</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdOne Admin | Greyson</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { background-color: #020617; color: white; font-family: sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
 </head>
-<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-6">
+<body class="min-h-screen flex items-center justify-center p-6">
 
-    <div id="authBox" class="max-w-md w-full p-8 rounded-3xl bg-slate-900 border border-white/10 text-center">
-        <h2 class="text-2xl font-bold mb-6">Admin Access</h2>
-        <input id="adminPass" type="password" placeholder="Enter Password" class="w-full bg-black border border-white/20 p-4 rounded-xl mb-4 outline-none">
-        <button onclick="checkPass()" class="w-full bg-emerald-500 text-black font-bold py-3 rounded-xl">Unlock Admin</button>
+    <div id="authBox" class="max-w-md w-full p-8 rounded-[2.5rem] glass text-center shadow-2xl">
+        <div class="mb-6">
+            <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+                <span class="text-2xl">🔒</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Admin Access</h2>
+            <p class="text-slate-400 text-xs mt-1 uppercase tracking-widest font-bold">Greyson Only</p>
+        </div>
+        
+        <input id="adminPass" type="password" placeholder="Enter Admin Password" 
+            class="w-full bg-black border border-white/10 rounded-2xl p-4 mb-4 outline-none focus:border-emerald-500 text-center text-white font-bold transition-all">
+        
+        <button onclick="checkPass()" class="w-full bg-emerald-500 text-black font-black py-4 rounded-2xl hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-emerald-500/20">
+            Unlock Dashboard
+        </button>
     </div>
 
-    <div id="adminContent" class="max-w-md w-full p-8 rounded-3xl bg-slate-900 border border-white/10 hidden">
-        <h1 class="text-3xl font-bold mb-8 text-emerald-400 text-center">Send Reply</h1>
-        <div class="space-y-4">
+    <div id="adminContent" class="max-w-md w-full p-8 rounded-[2.5rem] glass border border-white/10 hidden">
+        <h1 class="text-3xl font-black mb-8 text-emerald-400 text-center tracking-tighter">Send Real Reply</h1>
+        
+        <div class="space-y-5">
             <div>
-                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Target User ID (From Email)</label>
-                <input id="targetUser" type="text" placeholder="e.g. User-1234" class="w-full bg-black border border-white/20 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
+                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-widest">Target Username (From Email)</label>
+                <input id="targetUser" type="text" placeholder="e.g. GamerBoy22" 
+                    class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-500 text-white font-medium">
             </div>
+            
             <div>
-                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Message Content</label>
-                <textarea id="replyMsg" placeholder="Type your [REAL REPLY] here..." class="w-full bg-black border border-white/20 p-4 rounded-xl h-32 outline-none focus:border-blue-500 text-white"></textarea>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-widest">Message to User</label>
+                <textarea id="replyMsg" placeholder="Yo! I added that site for you..." 
+                    class="w-full bg-black border border-white/10 p-4 rounded-2xl h-32 outline-none focus:border-blue-500 text-white font-medium resize-none"></textarea>
             </div>
-            <button onclick="sendReply()" class="w-full bg-blue-600 py-4 rounded-xl font-extrabold hover:bg-blue-500 transition-all shadow-xl">POST NOTIFICATION</button>
+            
+            <button onclick="sendReply()" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/20 active:scale-95">
+                POST NOTIFICATION
+            </button>
+            
+            <button onclick="location.reload()" class="w-full text-slate-600 text-[10px] uppercase font-bold tracking-widest mt-4">Log Out</button>
         </div>
     </div>
 
     <script>
+        // Supabase Setup
         const supabaseUrl = 'https://dkqxklxniugjpchpajlz.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcXhrbHhuaXVnanBjaHBhamx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjY4MTIsImV4cCI6MjA4ODk0MjgxMn0.tBrAd0Im7XR30oNV1NROERm6-yF8PNBFeCqFFX4qbGM';
         const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
+        // Password Logic
         function checkPass() {
             const pass = document.getElementById('adminPass').value;
-            // Default password is "1234" - Change it below if you want!
-            if(pass === "1234") { 
+            if(pass === "Killerboi78") { 
                 document.getElementById('authBox').classList.add('hidden');
                 document.getElementById('adminContent').classList.remove('hidden');
+                document.getElementById('adminContent').classList.add('flex', 'flex-col');
             } else {
-                alert("Incorrect password!");
+                alert("Incorrect Password, Greyson.");
+                document.getElementById('adminPass').value = "";
             }
         }
 
+        // Send Logic
         async function sendReply() {
-            const userId = document.getElementById('targetUser').value;
-            const message = document.getElementById('replyMsg').value;
-            if(!userId || !message) return alert("Fill out both boxes!");
+            const userId = document.getElementById('targetUser').value.trim();
+            const message = document.getElementById('replyMsg').value.trim();
+            
+            if(!userId || !message) {
+                alert("Please fill in the name and the message!");
+                return;
+            }
 
-            const { error } = await supabase.from('site_notifications').insert([{ user_id: userId, message: message }]);
-            if (error) alert("Error: " + error.message);
-            else {
-                alert("Success! Message sent to " + userId);
+            const { error } = await supabase
+                .from('site_notifications')
+                .insert([{ user_id: userId, message: message }]);
+
+            if (error) {
+                alert("Error sending: " + error.message);
+            } else {
+                alert("Successfully sent to " + userId + "!");
                 document.getElementById('replyMsg').value = "";
+                document.getElementById('targetUser').value = "";
             }
         }
+
+        // Allow "Enter" key to submit password
+        document.getElementById('adminPass').addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPass();
+            }
+        });
     </script>
 </body>
 </html>
