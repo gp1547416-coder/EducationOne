@@ -6,28 +6,32 @@
     <title>EducationOne | Games</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #020617; color: white; font-family: sans-serif; }
+        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .games-btn { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
         .phonk-btn { background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); }
         .coding-btn { background: #1e293b; border: 1px solid #10b981; color: #10b981; }
-        /* New Style for Android Emulator */
-        .android-btn { background: linear-gradient(135deg, #a4c639 0%, #3ddc84 100%); color: #020617; }
+        .android-btn { background: linear-gradient(135deg, #a4c639 0%, #3ddc84 100%); color: #064e3b; }
     </style>
 </head>
 <body class="min-h-screen p-6 flex flex-col items-center">
 
     <div class="max-w-md w-full p-8 rounded-[2.5rem] glass text-center mb-6">
-        <h1 class="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">EducationOne</h1>
-        <p id="userNameDisplay" class="mt-2 text-emerald-400 font-bold uppercase text-[10px] tracking-widest italic">Loading User...</p>
+        <header class="mb-8">
+            <h1 class="text-4xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">EducationOne</h1>
+            <p id="userNameDisplay" class="mt-2 text-emerald-400 font-bold uppercase text-[10px] tracking-widest italic">Loading User...</p>
+        </header>
 
         <div class="space-y-4 my-8">
             <a href="https://funedu-learning.vercel.app" class="block w-full py-4 rounded-2xl games-btn font-bold hover:scale-[1.02] transition-all">Lots of Games Unblocked</a>
             
             <a href="https://learningspot.vercel.app" class="block w-full py-4 rounded-2xl bg-white text-black font-bold hover:scale-[1.02] transition-all">Unblocked Roblox & Games</a>
 
-            <a href="https://smartlessons.vercel.app" class="block w-full py-4 rounded-2xl android-btn font-bold hover:scale-[1.02] transition-all shadow-lg shadow-emerald-500/20">Unblocked Android Emulator</a>
+            <a href="https://smartlesson.vercel.app" class="block w-full py-4 rounded-2xl android-btn font-black hover:scale-[1.02] transition-all shadow-lg shadow-emerald-500/20">
+                🤖 Unblocked Android Emulator
+            </a>
             
             <a href="https://networkclass.vercel.app" class="block w-full py-4 rounded-2xl phonk-btn font-bold hover:scale-[1.02] transition-all">Unblocked Phonk Playlist</a>
             
