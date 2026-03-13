@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greyson's Admin</title>
+    <title>Greyson's Admin | EdOne</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-950 text-white p-10 font-sans">
-    <div class="max-w-xl mx-auto bg-slate-900 p-8 rounded-3xl border border-white/10 shadow-2xl">
-        <h1 class="text-2xl font-bold mb-6 text-emerald-400">Send [REAL REPLY]</h1>
-        
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-6">
+
+    <div id="authBox" class="max-w-md w-full p-8 rounded-3xl bg-slate-900 border border-white/10 text-center">
+        <h2 class="text-2xl font-bold mb-6">Admin Access</h2>
+        <input id="adminPass" type="password" placeholder="Enter Password" class="w-full bg-black border border-white/20 p-4 rounded-xl mb-4 outline-none">
+        <button onclick="checkPass()" class="w-full bg-emerald-500 text-black font-bold py-3 rounded-xl">Unlock Admin</button>
+    </div>
+
+    <div id="adminContent" class="max-w-md w-full p-8 rounded-3xl bg-slate-900 border border-white/10 hidden">
+        <h1 class="text-3xl font-bold mb-8 text-emerald-400 text-center">Send Reply</h1>
         <div class="space-y-4">
             <div>
-                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Target User ID</label>
-                <input id="targetUser" type="text" placeholder="e.g. User-1234" class="w-full bg-black border border-white/20 p-3 rounded-xl outline-none focus:border-blue-500">
+                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Target User ID (From Email)</label>
+                <input id="targetUser" type="text" placeholder="e.g. User-1234" class="w-full bg-black border border-white/20 p-4 rounded-xl outline-none focus:border-blue-500 text-white">
             </div>
             <div>
-                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Your Message</label>
-                <textarea id="replyMsg" placeholder="Hey! I added the game..." class="w-full bg-black border border-white/20 p-3 rounded-xl h-32 outline-none focus:border-blue-500"></textarea>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Message Content</label>
+                <textarea id="replyMsg" placeholder="Type your [REAL REPLY] here..." class="w-full bg-black border border-white/20 p-4 rounded-xl h-32 outline-none focus:border-blue-500 text-white"></textarea>
             </div>
-            <button onclick="sendReply()" class="w-full bg-blue-600 py-4 rounded-xl font-extrabold hover:bg-blue-500 transition-all">POST REPLY</button>
+            <button onclick="sendReply()" class="w-full bg-blue-600 py-4 rounded-xl font-extrabold hover:bg-blue-500 transition-all shadow-xl">POST NOTIFICATION</button>
         </div>
     </div>
 
@@ -27,6 +33,17 @@
         const supabaseUrl = 'https://dkqxklxniugjpchpajlz.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcXhrbHhuaXVnanBjaHBhamx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjY4MTIsImV4cCI6MjA4ODk0MjgxMn0.tBrAd0Im7XR30oNV1NROERm6-yF8PNBFeCqFFX4qbGM';
         const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
+
+        function checkPass() {
+            const pass = document.getElementById('adminPass').value;
+            // Default password is "1234" - Change it below if you want!
+            if(pass === "1234") { 
+                document.getElementById('authBox').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+            } else {
+                alert("Incorrect password!");
+            }
+        }
 
         async function sendReply() {
             const userId = document.getElementById('targetUser').value;
@@ -36,7 +53,7 @@
             const { error } = await supabase.from('site_notifications').insert([{ user_id: userId, message: message }]);
             if (error) alert("Error: " + error.message);
             else {
-                alert("Success! Reply sent to " + userId);
+                alert("Success! Message sent to " + userId);
                 document.getElementById('replyMsg').value = "";
             }
         }
