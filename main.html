@@ -12,6 +12,8 @@
         .games-btn { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
         .phonk-btn { background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); }
         .coding-btn { background: #1e293b; border: 1px solid #10b981; color: #10b981; }
+        /* New Style for Android Emulator */
+        .android-btn { background: linear-gradient(135deg, #a4c639 0%, #3ddc84 100%); color: #020617; }
     </style>
 </head>
 <body class="min-h-screen p-6 flex flex-col items-center">
@@ -24,6 +26,8 @@
             <a href="https://funedu-learning.vercel.app" class="block w-full py-4 rounded-2xl games-btn font-bold hover:scale-[1.02] transition-all">Lots of Games Unblocked</a>
             
             <a href="https://learningspot.vercel.app" class="block w-full py-4 rounded-2xl bg-white text-black font-bold hover:scale-[1.02] transition-all">Unblocked Roblox & Games</a>
+
+            <a href="https://smartlessons.vercel.app" class="block w-full py-4 rounded-2xl android-btn font-bold hover:scale-[1.02] transition-all shadow-lg shadow-emerald-500/20">Unblocked Android Emulator</a>
             
             <a href="https://networkclass.vercel.app" class="block w-full py-4 rounded-2xl phonk-btn font-bold hover:scale-[1.02] transition-all">Unblocked Phonk Playlist</a>
             
@@ -78,7 +82,7 @@
         }
 
         fetchNotifs();
-        setInterval(fetchNotifs, 30000); // Check for replies every 30 seconds
+        setInterval(fetchNotifs, 30000);
     </script>
 </body>
 </html>
