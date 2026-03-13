@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greyson's Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-950 text-white p-10 font-sans">
+    <div class="max-w-xl mx-auto bg-slate-900 p-8 rounded-3xl border border-white/10 shadow-2xl">
+        <h1 class="text-2xl font-bold mb-6 text-emerald-400">Send [REAL REPLY]</h1>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Target User ID</label>
+                <input id="targetUser" type="text" placeholder="e.g. User-1234" class="w-full bg-black border border-white/20 p-3 rounded-xl outline-none focus:border-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Your Message</label>
+                <textarea id="replyMsg" placeholder="Hey! I added the game..." class="w-full bg-black border border-white/20 p-3 rounded-xl h-32 outline-none focus:border-blue-500"></textarea>
+            </div>
+            <button onclick="sendReply()" class="w-full bg-blue-600 py-4 rounded-xl font-extrabold hover:bg-blue-500 transition-all">POST REPLY</button>
+        </div>
+    </div>
+
+    <script>
+        const supabaseUrl = 'https://dkqxklxniugjpchpajlz.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcXhrbHhuaXVnanBjaHBhamx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjY4MTIsImV4cCI6MjA4ODk0MjgxMn0.tBrAd0Im7XR30oNV1NROERm6-yF8PNBFeCqFFX4qbGM';
+        const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
+
+        async function sendReply() {
+            const userId = document.getElementById('targetUser').value;
+            const message = document.getElementById('replyMsg').value;
+            if(!userId || !message) return alert("Fill out both boxes!");
+
+            const { error } = await supabase.from('site_notifications').insert([{ user_id: userId, message: message }]);
+            if (error) alert("Error: " + error.message);
+            else {
+                alert("Success! Reply sent to " + userId);
+                document.getElementById('replyMsg').value = "";
+            }
+        }
+    </script>
+</body>
+</html>
