@@ -12,7 +12,6 @@
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .phonk-btn { background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); }
         .games-btn { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
-        /* Style for the disabled button state */
         button:disabled { 
             opacity: 0.6; 
             cursor: not-allowed; 
@@ -30,9 +29,10 @@
         </header>
 
         <div class="space-y-4 mb-10">
-            <a href="https://FunEdu.vercel.app" class="block w-full py-4 rounded-2xl games-btn font-bold text-lg transition-all hover:scale-[1.03]">Lots of Games Unblocked</a>
-            <a href="https://learningspot.vercel.app" class="block w-full py-4 rounded-2xl bg-white text-black font-bold text-lg transition-all hover:scale-[1.03]">Unblocked Roblox & Games</a>
-            <a href="https://networkclass.vercel.app" class="block w-full py-4 rounded-2xl phonk-btn font-bold text-lg transition-all hover:scale-[1.03]">Unblocked Phonk Playlist</a>
+            <a href="https://funedu-learning.vercel.app" class="block w-full py-4 rounded-2xl games-btn font-bold text-lg transition-all hover:scale-[1.03] active:scale-95 shadow-lg shadow-blue-500/20">Lots of Games Unblocked</a>
+            
+            <a href="https://learningspot.vercel.app" class="block w-full py-4 rounded-2xl bg-white text-black font-bold text-lg transition-all hover:scale-[1.03] active:scale-95">Unblocked Roblox & Games</a>
+            <a href="https://networkclass.vercel.app" class="block w-full py-4 rounded-2xl phonk-btn font-bold text-lg transition-all hover:scale-[1.03] active:scale-95 shadow-purple-500/20">Unblocked Phonk Playlist</a>
             <a href="https://fasteducation.vercel.app" class="block w-full py-4 rounded-2xl bg-slate-800 text-emerald-400 font-mono text-lg border border-slate-700 transition-all hover:scale-[1.03]">&lt; Unblocked Coding /&gt;</a>
             <a href="https://classmathlearning.vercel.app" class="block w-full py-3 px-6 rounded-2xl glass text-slate-400 font-semibold text-sm transition-all hover:bg-white/10 italic">[IN-DEV] Unblocked Searcher</a>
         </div>
@@ -72,7 +72,6 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcXhrbHhuaXVnanBjaHBhamx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjY4MTIsImV4cCI6MjA4ODk0MjgxMn0.tBrAd0Im7XR30oNV1NROERm6-yF8PNBFeCqFFX4qbGM';
         const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
 
-        // 1. Logic to create/load the ID
         function setupUserId() {
             let myId = localStorage.getItem('edOne_userId');
             if (!myId) {
@@ -83,16 +82,14 @@
             const idDisplay = document.getElementById('idDisplay');
             const submitBtn = document.getElementById('submitBtn');
             
-            // 2. Update UI once ID is confirmed
             if (myId) {
                 idDisplay.value = myId;
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Submit Request";
-                submitBtn.classList.add('hover:bg-emerald-400'); // Add hover back once active
+                submitBtn.classList.add('hover:bg-emerald-400');
             }
         }
 
-        // Run setup
         setupUserId();
 
         async function checkNotifications() {
